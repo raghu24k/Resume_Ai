@@ -1,2 +1,10 @@
-npm install react-router-dom framer-motion lucide-react
+-- npm install
+-- git pull origin main
+-- npm install react-router-dom framer-motion lucide-react OR npm install framer-motion
+ 
 
+
+//to add git with command
+git add .
+git commit -m "Your message"
+git push origin main
