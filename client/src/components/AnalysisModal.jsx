@@ -1,5 +1,5 @@
 import { X, CheckCircle, AlertTriangle, Lightbulb, XCircle, Loader2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+// import { motion, AnimatePresence } from 'framer-motion';
 
 const AnalysisModal = ({ isOpen, onClose, analysis, isLoading }) => {
     if (!isOpen) return null;
