@@ -8,3 +8,7 @@
 git add .
 git commit -m "Your message"
 git push origin main
+
+
+npm install react-dropzone
+npm install @reduxjs/toolkit react-redux axios
