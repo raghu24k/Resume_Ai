@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { register, reset } from '../features/auth/authSlice';
 import { Loader2, Mail, Lock, User } from 'lucide-react';
-// import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const Register = () => {
     const [formData, setFormData] = useState({

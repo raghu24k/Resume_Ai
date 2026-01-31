@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-// import { getResumeById, updateLocalResume, updateResume, analyzeResume } from '../features/resumes/resumeSlice';
+import { getResumeById, updateLocalResume, updateResume, analyzeResume } from '../features/resumes/resumeSlice';
 import { Loader2, Save, Sparkles } from 'lucide-react';
 import { toast } from 'react-toastify';
 
