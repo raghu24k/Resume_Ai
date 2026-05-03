@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import resumeService from './resumeService';
+import { logout } from '../auth/authSlice';
 
 const initialState = {
     resumes: [],
@@ -12,12 +13,21 @@ const initialState = {
     message: '',
 };
 
+// Helper function to safely get token
+const getToken = (thunkAPI) => {
+    const authUser = thunkAPI.getState().auth.user;
+    if (!authUser || !authUser.token) {
+        throw new Error('Not authenticated');
+    }
+    return authUser.token;
+};
+
 // Get user resumes
 export const getResumes = createAsyncThunk(
     'resumes/getAll',
     async (_, thunkAPI) => {
         try {
-            const token = thunkAPI.getState().auth.user.token;
+            const token = getToken(thunkAPI);
             return await resumeService.getResumes(token);
         } catch (error) {
             const message =
@@ -36,7 +46,7 @@ export const createResume = createAsyncThunk(
     'resumes/create',
     async (resumeData, thunkAPI) => {
         try {
-            const token = thunkAPI.getState().auth.user.token;
+            const token = getToken(thunkAPI);
             return await resumeService.createResume(resumeData, token);
         } catch (error) {
             const message =
@@ -55,7 +65,7 @@ export const updateResume = createAsyncThunk(
     'resumes/update',
     async ({ id, resumeData }, thunkAPI) => {
         try {
-            const token = thunkAPI.getState().auth.user.token;
+            const token = getToken(thunkAPI);
             return await resumeService.updateResume(id, resumeData, token);
         } catch (error) {
             const message =
@@ -74,7 +84,7 @@ export const getResumeById = createAsyncThunk(
     'resumes/getOne',
     async (id, thunkAPI) => {
         try {
-            const token = thunkAPI.getState().auth.user.token;
+            const token = getToken(thunkAPI);
             return await resumeService.getResumeById(id, token);
         } catch (error) {
             const message =
@@ -93,7 +103,7 @@ export const analyzeResume = createAsyncThunk(
     'resumes/analyze',
     async (id, thunkAPI) => {
         try {
-            const token = thunkAPI.getState().auth.user.token;
+            const token = getToken(thunkAPI);
             return await resumeService.analyzeResume(id, token);
         } catch (error) {
             const message =
@@ -182,6 +192,10 @@ export const resumeSlice = createSlice({
                 state.isAnalyzing = false;
                 state.isError = true;
                 state.message = action.payload;
+            })
+            .addCase(logout.fulfilled, (state) => {
+                // Reset resume state on logout
+                return initialState;
             })
     },
 });

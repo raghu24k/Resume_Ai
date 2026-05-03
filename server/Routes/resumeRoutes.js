@@ -6,8 +6,8 @@ const {
     getResumeById,
     updateResume,
     deleteResume,
-} = require('../controllers/resumeController');
-const { analyzeResume } = require('../controllers/aiController');
+} = require('../Controllers/resumeController');
+const { analyzeResume } = require('../Controllers/aiController');
 const { protect } = require('../middleware/authMiddleware');
 
 router.route('/').get(protect, getResumes).post(protect, createResume);

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { analyzeUploadedResume } = require('../controllers/analysisController');
+const { analyzeUploadedResume } = require('../Controllers/analysisController');
 const { protect } = require('../middleware/authMiddleware');
 
 // Configure Multer for PDF uploads

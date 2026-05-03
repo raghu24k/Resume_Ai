@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../features/auth/authSlice';
+import { reset as resetResumes } from '../features/resumes/resumeSlice';
 import { LogOut, User, FileText, CheckCircle } from 'lucide-react';
 
 const Navbar = () => {
@@ -8,10 +9,19 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
 
-    const onLogout = () => {
-        dispatch(logout());
-        dispatch(reset());
-        navigate('/');
+    const onLogout = async () => {
+        try {
+            await dispatch(logout()).unwrap();
+            dispatch(reset());
+            dispatch(resetResumes());
+            navigate('/', { replace: true });
+        } catch (error) {
+            console.error('Logout error:', error);
+            // Force logout even if there's an error
+            dispatch(reset());
+            dispatch(resetResumes());
+            navigate('/', { replace: true });
+        }
     };
 
     return (
